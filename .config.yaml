@@ -1,0 +1,6 @@
+port: 9000
+mediaPath: "$HOME/Documents"
+token: 123456
+logconfig:
+  level: debug
+  file: logfile.log
