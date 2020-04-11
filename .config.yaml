@@ -1,6 +1,42 @@
+############################################################################################
+##      This is a demos config. Rename the file to config.yaml and add your settings      ##
+############################################################################################
+
 port: 9000
-mediaPath: "$HOME/Documents"
+mediaPath: "./media"
 token: 123456
 logconfig:
   level: debug
   file: logfile.log
+
+videoFolders:
+  - movies
+  - tv_shows
+
+musicFolders:
+  - music
+
+videoFormats: 
+  - .3gp
+  - .mpg
+  - .mpeg
+  - .mp4
+  - .m4v
+  - .m4p
+  - .ogv
+  - .ogg
+  - .webm
+
+audioFormats: 
+  - .3gp
+  - .aac
+  - .flac
+  - .mpg
+  - .mpeg
+  - .mp3
+  - .mp4
+  - .m4a
+  - .oga
+  - .ogg
+  - .wav
+  - .webm

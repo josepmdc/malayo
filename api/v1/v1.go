@@ -2,8 +2,10 @@ package v1
 
 import (
 	"malayo/conf"
+	"malayo/repos"
 	"malayo/util"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/go-chi/chi"
@@ -24,6 +26,7 @@ func NewRouter(config *conf.Config) http.Handler {
 
 	r.With(requireAuthentication).Post("/user", getUser)
 	r.Get("/user", getUser)
+	r.Get("/movie/{id}", getMovieByID)
 
 	return r
 }
@@ -36,6 +39,20 @@ func getUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	util.ResponseJSON(w, response, http.StatusOK)
+}
+
+func getMovieByID(w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.Atoi(chi.URLParam(r, "id"))
+	if err != nil {
+		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		return
+	}
+	file, err := repos.GetMovieByID(id)
+	if err != nil {
+		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		return
+	}
+	http.ServeFile(w, r, file)
 }
 
 // TODO This method is made for testing purpouses and must be removed once the project is set up

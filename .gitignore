@@ -1,1 +1,13 @@
+# Ignore the official config file. There's a .config.yaml as en example
 config.yaml
+
+# Ignore media files so they don't get uploaded to git
+media/movies/*
+media/tv_shows/*
+media/music/*
+
+files.json
+videos.json
+music.json
+
+logfile.log

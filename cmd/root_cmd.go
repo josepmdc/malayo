@@ -17,14 +17,14 @@ var index bool
 // RootCommand is the main command for starting the server. It reads the command flags port and config
 func RootCommand() *cobra.Command {
 	rootCmd := cobra.Command{
-		Use: "Start the server",
+		Use: "[options]",
 		Run: run,
 	}
 
-	rootCmd.Flags().IntP("port", "p", 0, "the port to use")
-	rootCmd.PersistentFlags().StringP("config", "c", "config.yaml", "config file")
-	rootCmd.PersistentFlags().StringP("mediaPath", "m", "$HOME/Videos", "media directory")
-	rootCmd.Flags().BoolVarP(&index, "index", "i", false, "indexes your media library")
+	rootCmd.Flags().IntP("port", "p", 0, "--port [number] | -p [number]")
+	rootCmd.PersistentFlags().StringP("config", "c", "config.yaml", "--config [path] | -c [path]")
+	rootCmd.PersistentFlags().StringP("mediaPath", "m", "$HOME/Videos", "--mediaPath [path] | -m [path]")
+	rootCmd.Flags().BoolVarP(&index, "index", "i", false, "--index=[true|false] | -i=[true|false]")
 
 	return &rootCmd
 }
