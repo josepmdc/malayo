@@ -9,34 +9,18 @@ logconfig:
   level: debug
   file: logfile.log
 
-videoFolders:
-  - movies
-  - tv_shows
-
-musicFolders:
-  - music
-
-videoFormats: 
-  - .3gp
-  - .mpg
-  - .mpeg
-  - .mp4
-  - .m4v
-  - .m4p
-  - .ogv
-  - .ogg
-  - .webm
-
-audioFormats: 
-  - .3gp
-  - .aac
-  - .flac
-  - .mpg
-  - .mpeg
-  - .mp3
-  - .mp4
-  - .m4a
-  - .oga
-  - .ogg
-  - .wav
-  - .webm
+movies:
+  path  : './media/movies'
+  api   : 'api.themoviedb.org/3'
+  key   : '<api_key>'
+  json  : 'movies.json'
+music:
+  path  : './media/music'
+  api   : 'api.spotify.com/v1'
+  key   : '<access_token>'
+  json  : 'music.json'
+tv:
+  path  : './media/tv'
+  api   : 'api.themoviedb.org/3'
+  key   : '<api_key>'
+  json  : 'tv.json'

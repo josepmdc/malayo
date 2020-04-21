@@ -2,9 +2,10 @@ package conf
 
 import (
 	"bufio"
-	"github.com/sirupsen/logrus"
 	"os"
 	"strings"
+
+	"github.com/sirupsen/logrus"
 )
 
 type LoggingConfig struct {
@@ -33,8 +34,8 @@ func ConfigureLogging(config *LoggingConfig) (*logrus.Entry, error) {
 	logrus.SetLevel(level)
 
 	logrus.SetFormatter(&logrus.TextFormatter{
-		FullTimestamp:true,
-		DisableTimestamp:false,
+		FullTimestamp:    true,
+		DisableTimestamp: false,
 	})
 
 	return logrus.StandardLogger().WithField("hostname", hostname), nil

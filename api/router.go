@@ -4,6 +4,7 @@ import (
 	"fmt"
 	v1 "malayo/api/v1"
 	"malayo/conf"
+	"malayo/indexing"
 	"net/http"
 	"time"
 
@@ -23,6 +24,7 @@ func NewRouter(config *conf.Config) http.Handler {
 
 	// Set up root handlers
 	router.Get("/", helloWorld)
+	router.Get("/generate", generateIndex(config))
 
 	// Set up API
 	router.Mount("/api/v1/", v1.NewRouter(config))
@@ -36,4 +38,16 @@ func helloWorld(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func generateIndex(config *conf.Config) http.HandlerFunc {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		err := indexing.IndexMediaLibrary(config)
+		if err != nil {
+			fmt.Println(err)
+			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		} else {
+			w.WriteHeader(http.StatusOK)
+		}
+	})
 }

@@ -43,7 +43,7 @@ func run(cmd *cobra.Command, args []string) {
 	logger.Infof("Starting with config: %+v", config)
 
 	if index == true {
-		indexing.IndexMediaLibrary(config.MediaPath)
+		indexing.IndexMediaLibrary(config)
 	}
 
 	startServer(config)

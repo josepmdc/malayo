@@ -3,11 +3,11 @@ config.yaml
 
 # Ignore media files so they don't get uploaded to git
 media/movies/*
-media/tv_shows/*
+media/tv/*
 media/music/*
 
-files.json
-videos.json
+movies.json
+tv.json
 music.json
 
 logfile.log
