@@ -6,6 +6,7 @@ import (
 	"malayo/api"
 	"malayo/conf"
 	"malayo/indexing"
+	"malayo/services"
 	"net/http"
 	"time"
 
@@ -29,7 +30,7 @@ func RootCommand() *cobra.Command {
 	return &rootCmd
 }
 
-func run(cmd *cobra.Command, args []string) {
+func run(cmd *cobra.Command, _ []string) {
 	config, err := conf.LoadConfig(cmd)
 	if err != nil {
 		log.Fatal("Failed to load config: " + err.Error())
@@ -43,15 +44,20 @@ func run(cmd *cobra.Command, args []string) {
 	logger.Infof("Starting with config: %+v", config)
 
 	if index == true {
-		indexing.IndexMediaLibrary(config)
+		err := indexing.IndexMediaLibrary(&config.Media)
+		if err != nil {
+			logger.Errorf("Unable to index library. Error: \n%s", err.Error())
+		}
 	}
 
-	startServer(config)
+	service := services.NewMediaService(config)
+
+	startServer(config, service)
 }
 
-func startServer(config *conf.Config) {
+func startServer(config *conf.Config, service services.MediaService) {
 
-	handler := api.NewRouter(config)
+	handler := api.NewRouter(config, service)
 
 	srv := &http.Server{
 		Addr:         fmt.Sprintf("%s:%d", "localhost", config.Port),

@@ -5,6 +5,7 @@ import (
 	v1 "malayo/api/v1"
 	"malayo/conf"
 	"malayo/indexing"
+	"malayo/services"
 	"net/http"
 	"time"
 
@@ -13,7 +14,7 @@ import (
 )
 
 // NewRouter creates an http router fot the server
-func NewRouter(config *conf.Config) http.Handler {
+func NewRouter(config *conf.Config, ms services.MediaService) http.Handler {
 	router := chi.NewRouter()
 
 	// Set up our middleware with sane defaults
@@ -24,15 +25,15 @@ func NewRouter(config *conf.Config) http.Handler {
 
 	// Set up root handlers
 	router.Get("/", helloWorld)
-	router.Get("/generate", generateIndex(config))
+	router.Get("/generate", generateIndex(&config.Media))
 
 	// Set up API
-	router.Mount("/api/v1/", v1.NewRouter(config))
+	router.Mount("/api/v1/", v1.NewRouter(config, ms))
 
 	return router
 }
 
-func helloWorld(w http.ResponseWriter, r *http.Request) {
+func helloWorld(w http.ResponseWriter, _ *http.Request) {
 	_, err := fmt.Fprintf(w, "Hello!")
 
 	if err != nil {
@@ -40,7 +41,7 @@ func helloWorld(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func generateIndex(config *conf.Config) http.HandlerFunc {
+func generateIndex(config *conf.Media) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		err := indexing.IndexMediaLibrary(config)
 		if err != nil {

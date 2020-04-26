@@ -5,9 +5,13 @@ config.yaml
 media/movies/*
 media/tv/*
 media/music/*
+media/books/*
 
 movies.json
 tv.json
 music.json
+books.json
 
 logfile.log
+
+.idea

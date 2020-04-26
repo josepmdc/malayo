@@ -1,10 +1,6 @@
 package util
 
 import (
-	"encoding/json"
-	"fmt"
-	"log"
-	"net/http"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -44,34 +40,4 @@ func GetAbsPath(inPath string) string {
 	}
 
 	return ""
-}
-
-// Find looks for a value on a strings slice and returns the index and true if it is found, -1 and false if it is not found.
-func Find(slice []string, val string) (int, bool) {
-	for i, item := range slice {
-		if item == val {
-			return i, true
-		}
-	}
-	return -1, false
-}
-
-// ResponseJSON returns an HTTP response in JSON format
-func ResponseJSON(w http.ResponseWriter, data interface{}, c int) {
-	dj, err := json.MarshalIndent(data, "", "  ")
-	if err != nil {
-		http.Error(w, "Error creating JSON response", http.StatusInternalServerError)
-		log.Println(err)
-		return
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(c)
-	_, err = fmt.Fprintf(w, "%s", dj)
-
-	if err != nil {
-		http.Error(w, "Error creating JSON response", http.StatusInternalServerError)
-		log.Println(err)
-		return
-	}
 }

@@ -12,17 +12,8 @@ type Config struct {
 	Port      int64         `yaml:"port"`
 	LogConfig LoggingConfig `yaml:"logconfig"`
 	Token     string        `yaml:"token"`
-	Movies    Media         `yaml:"movies"`
-	Music     Media         `yaml:"music"`
-	Tv        Media         `yaml:"tv"`
-}
-
-// TODO: Move somewhere else
-type Media struct {
-	Path string `yaml:"path"`
-	API  string `yaml:"api"`
-	Key  string `yaml:"key"`
-	JSON string `yaml:"json"`
+	Media     Media         `yaml:"media"`
+	Storage   string        `yaml:"storage"`
 }
 
 // LoadConfig takes a command as an argument to get the command flags

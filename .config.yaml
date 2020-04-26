@@ -9,18 +9,26 @@ logconfig:
   level: debug
   file: logfile.log
 
-movies:
-  path  : './media/movies'
-  api   : 'api.themoviedb.org/3'
-  key   : '<api_key>'
-  json  : 'movies.json'
-music:
-  path  : './media/music'
-  api   : 'api.spotify.com/v1'
-  key   : '<access_token>'
-  json  : 'music.json'
-tv:
-  path  : './media/tv'
-  api   : 'api.themoviedb.org/3'
-  key   : '<api_key>'
-  json  : 'tv.json'
+storage: 'json' # available options: 'postgres', 'json'
+
+media:
+  movies:
+    path  : './media/movies'
+    api   : 'api.themoviedb.org/3'
+    key   : '<api_key>'
+    json  : 'movies.json'
+  music:
+    path  : './media/music'
+    api   : 'api.spotify.com/v1'
+    key   : '<access_token>'
+    json  : 'music.json'
+  tv:
+    path  : './media/tv'
+    api   : 'api.themoviedb.org/3'
+    key   : '<api_key>'
+    json  : 'tv.json'
+  books:
+    path  : './media/books'
+    api   : 'www.googleapis.com/books/v1'
+    key   : '<api_key>'
+    json  : 'books.json'
