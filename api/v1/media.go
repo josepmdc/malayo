@@ -1,9 +1,9 @@
 package v1
 
 import (
-	"malayo/api"
 	"malayo/repos"
 	"malayo/services"
+	"malayo/util"
 	"net/http"
 
 	"github.com/go-chi/chi"
@@ -45,8 +45,8 @@ func (h *mediaHandler) getTvShow(w http.ResponseWriter, r *http.Request) {
 
 func response(media *repos.Media, err error, w http.ResponseWriter) {
 	if err != nil {
-		api.ResponseJSON(w, nil, http.StatusNotFound)
+		util.ResponseJSON(w, nil, http.StatusNotFound)
 		return
 	}
-	api.ResponseJSON(w, media, http.StatusOK)
+	util.ResponseJSON(w, media, http.StatusOK)
 }

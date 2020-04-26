@@ -1,9 +1,9 @@
 package v1
 
 import (
-	"malayo/api"
 	"malayo/conf"
 	"malayo/services"
+	"malayo/util"
 	"net/http"
 	"strings"
 
@@ -39,7 +39,7 @@ func getUser(w http.ResponseWriter, _ *http.Request) {
 		Age:  56,
 	}
 
-	api.ResponseJSON(w, response, http.StatusOK)
+	util.ResponseJSON(w, response, http.StatusOK)
 }
 
 // TODO This method is made for testing purpouses and secure authentication should be applied
