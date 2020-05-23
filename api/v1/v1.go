@@ -26,19 +26,17 @@ func NewRouter(config *conf.Config, ms services.MediaService) http.Handler {
 	r.With(requireAuthentication).Post("/user", getUser)
 	r.Get("/user", getUser)
 
-	h := mediaHandler{s: ms}
+	h := mediaHandler{service: ms}
 	r.Mount("/", h.router())
 
 	return r
 }
 
 func getUser(w http.ResponseWriter, _ *http.Request) {
-
 	response := userResponse{
 		Name: "John Doe",
 		Age:  56,
 	}
-
 	util.ResponseJSON(w, response, http.StatusOK)
 }
 

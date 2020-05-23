@@ -3,6 +3,7 @@ package util
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -44,6 +45,19 @@ func GetAbsPath(inPath string) string {
 	}
 
 	return ""
+}
+
+func WriteToJSON(data interface{}, file string, perm os.FileMode) error {
+	j, err := json.MarshalIndent(data, "", "")
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile(file, j, perm)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func ResponseJSON(w http.ResponseWriter, data interface{}, status int) {
