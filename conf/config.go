@@ -10,6 +10,7 @@ import (
 // Config struct defines the configuration
 type Config struct {
 	Port      int64         `yaml:"port"`
+	Domain    string        `yaml:"domain"`
 	LogConfig LoggingConfig `yaml:"logconfig"`
 	Token     string        `yaml:"token"`
 	Media     Media         `yaml:"media"`

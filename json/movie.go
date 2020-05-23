@@ -66,11 +66,11 @@ func (mr *movieRepoJSON) Create(m *domain.Movie) (*domain.Movie, error) {
 }
 
 func (mr *movieRepoJSON) Update(_ string) (*domain.Movie, error) {
-	return &domain.Movie{}, nil // TODO Implement function
+	panic("implement me") // TODO Implement function
 }
 
 func (mr *movieRepoJSON) Delete(_ string) error {
-	return nil // TODO Implement function
+	panic("implement me") // TODO Implement function
 }
 
 func unmarshalMovieJSON(file string) ([]domain.Movie, error) {

@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"malayo/conf"
 	"malayo/domain"
-	"malayo/json"
 )
 
 type MediaService interface {
@@ -20,16 +19,8 @@ type mediaService struct {
 	TvRepository    domain.TvRepository
 }
 
-func NewMediaService(c *conf.Config) *mediaService {
-	switch c.Storage {
-	case "json":
-		return &mediaService{
-			Config:          c,
-			MovieRepository: json.NewMovieRepo(c.Media.Movies),
-			TvRepository:    json.NewTvRepo(c.Media.Tv),
-		}
-	}
-	return nil
+func NewMediaService() *mediaService {
+	return &mediaService{}
 }
 
 func (ms *mediaService) GetMovie(ID string) (*domain.Movie, error) {

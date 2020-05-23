@@ -66,11 +66,11 @@ func (mr *tvRepoJSON) Create(m *domain.TvShow) (*domain.TvShow, error) {
 }
 
 func (mr *tvRepoJSON) Update(_ string) (*domain.TvShow, error) {
-	return &domain.TvShow{}, nil // TODO Implement function
+	panic("implement me") // TODO Implement function
 }
 
 func (mr *tvRepoJSON) Delete(_ string) error {
-	return nil // TODO Implement function
+	panic("implement me") // TODO Implement function
 }
 
 func unmarshalTvJSON(file string) ([]domain.TvShow, error) {

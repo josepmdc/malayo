@@ -5,7 +5,9 @@ import (
 	"log"
 	"malayo/api"
 	"malayo/conf"
+	postgres "malayo/database"
 	"malayo/indexing"
+	"malayo/json"
 	"malayo/services"
 	"net/http"
 	"time"
@@ -50,9 +52,23 @@ func run(cmd *cobra.Command, _ []string) {
 		}
 	}
 
-	service := services.NewMediaService(config)
+	mediaService := createMediaService(config)
 
-	startServer(config, service)
+	startServer(config, mediaService)
+}
+
+func createMediaService(config *conf.Config) services.MediaService {
+	mediaService := services.NewMediaService()
+	switch config.Storage {
+	case "json":
+		mediaService.MovieRepository = json.NewMovieRepo(config.Media.Movies)
+		mediaService.TvRepository = json.NewTvRepo(config.Media.Tv)
+	case "postgres":
+		// TODO Implement Postgres Storage
+		mediaService.MovieRepository = postgres.NewMovieRepo(config.Media.Movies)
+		//mediaService.TvRepository = postgres.NewTvRepo(config.Media.Tv)
+	}
+	return mediaService
 }
 
 func startServer(config *conf.Config, service services.MediaService) {
