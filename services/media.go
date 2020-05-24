@@ -19,8 +19,10 @@ type mediaService struct {
 	TvRepository    domain.TvRepository
 }
 
-func NewMediaService() *mediaService {
-	return &mediaService{}
+func NewMediaService(c *conf.Config) *mediaService {
+	return &mediaService{
+		Config: c,
+	}
 }
 
 func (ms *mediaService) GetMovie(ID string) (*domain.Movie, error) {

@@ -7,14 +7,15 @@ import (
 	"github.com/spf13/viper"
 )
 
-// Config struct defines the configuration
+// Config struct defines the configuration for the entire application
 type Config struct {
-	Port      int64         `yaml:"port"`
-	Domain    string        `yaml:"domain"`
-	LogConfig LoggingConfig `yaml:"logconfig"`
-	Token     string        `yaml:"token"`
-	Media     Media         `yaml:"media"`
-	Storage   string        `yaml:"storage"`
+	Port           int64          `yaml:"port"`
+	Domain         string         `yaml:"domain"`
+	LogConfig      LoggingConfig  `yaml:"logconfig"`
+	Token          string         `yaml:"token"`
+	Media          Media          `yaml:"media"`
+	Storage        string         `yaml:"storage"`
+	PostgresConfig PostgresConfig `yaml:"db"`
 }
 
 // LoadConfig takes a command as an argument to get the command flags

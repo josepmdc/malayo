@@ -52,23 +52,29 @@ func run(cmd *cobra.Command, _ []string) {
 		}
 	}
 
-	mediaService := createMediaService(config)
+	mediaService, err := createMediaService(config)
+	if err != nil {
+		panic(err)
+	}
 
 	startServer(config, mediaService)
 }
 
-func createMediaService(config *conf.Config) services.MediaService {
-	mediaService := services.NewMediaService()
+func createMediaService(config *conf.Config) (services.MediaService, error) {
+	mediaService := services.NewMediaService(config)
 	switch config.Storage {
 	case "json":
 		mediaService.MovieRepository = json.NewMovieRepo(config.Media.Movies)
 		mediaService.TvRepository = json.NewTvRepo(config.Media.Tv)
 	case "postgres":
-		// TODO Implement Postgres Storage
-		mediaService.MovieRepository = postgres.NewMovieRepo(config.Media.Movies)
+		db, err := postgres.NewDB(config.PostgresConfig)
+		if err != nil {
+			return nil, err
+		}
+		mediaService.MovieRepository = postgres.NewMovieRepo(db)
 		//mediaService.TvRepository = postgres.NewTvRepo(config.Media.Tv)
 	}
-	return mediaService
+	return mediaService, nil
 }
 
 func startServer(config *conf.Config, service services.MediaService) {

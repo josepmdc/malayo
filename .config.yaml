@@ -10,7 +10,14 @@ logconfig:
   level: debug
   file: logfile.log
 
-storage: 'json' # available options: 'postgres', 'json'
+storage: 'postgres' # available options: 'postgres', 'json'
+
+postgresConfig:
+  host: localhost
+  port: 5432
+  database: malayo
+  user: postgres
+  password: postgres
 
 media:
   movies:
